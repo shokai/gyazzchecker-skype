@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
-$:.unshift File.expand_path '../', File.dirname(__FILE__)
-require 'bootstrap'
+require File.expand_path '../bootstrap', File.dirname(__FILE__)
 require 'irb'
-Bootstrap.init :inits, :models
+Bootstrap.init :inits, :models, :libs
 
 IRB.start

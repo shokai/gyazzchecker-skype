@@ -1,7 +1,21 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
-$:.unshift File.expand_path '../', File.dirname(__FILE__)
-require 'bootstrap'
+require File.expand_path '../bootstrap', File.dirname(__FILE__)
+
+parser = ArgsParser.parse ARGV do
+  arg :limit, 'page limit'
+  arg :silent, 'no notify'
+  arg :help, 'show help', :alias => :h
+end
+
+if parser.has_option? :help
+  STDERR.puts parser.help
+  STDERR.puts "e.g."
+  STDERR.puts "  ruby #{$0}"
+  STDERR.puts "  ruby #{$0}  --limit 20"
+  exit 1
+end
+
 Bootstrap.init :inits, :models, :libs
 
 Conf['gyazz'].each do |wiki|
@@ -15,23 +29,25 @@ Conf['gyazz'].each do |wiki|
     puts "newpage : #{page.name}"
   end
 
-  crawler.on :new do |page|
-    msg = "【新規】 #{page.url}\n"
-    msg += page.data.join("\n")
-    Skype.send_chat_message Conf['skype'], msg
-  end
-
   crawler.on :diff do |page, diff|
     diff.each do |line|
       puts "diff : #{page.name} +#{line}"
     end
   end
 
-  crawler.on :diff do |page, diff|
-    msg = "【更新】 #{page.url}\n"
-    msg += diff.join("\n")
-    Skype.send_chat_message Conf['skype'], msg
+  unless parser[:silent]
+    crawler.on :new do |page|
+      msg = "【新規】 #{page.url}\n"
+      msg += page.data.join("\n")
+      Skype.send_chat_message Conf['skype'], msg
+    end
+
+    crawler.on :diff do |page, diff|
+      msg = "【更新】 #{page.url}\n"
+      msg += diff.join("\n")
+      Skype.send_chat_message Conf['skype'], msg
+    end
   end
 
-  crawler.crawl
+  crawler.crawl parser[:limit]
 end
