@@ -1,0 +1,5 @@
+gyazz : 
+  - wiki : test
+  - wiki : shokai
+    user : username
+    pass : password
