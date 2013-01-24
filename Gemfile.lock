@@ -22,6 +22,9 @@ GEM
       mongo (~> 1.7)
       tzinfo (~> 0.3.22)
     multi_json (1.5.0)
+    rb-appscript (0.6.1)
+    rb-skypemac (0.3.2)
+      rb-appscript (>= 0.3.0)
     tzinfo (0.3.35)
 
 PLATFORMS
@@ -33,3 +36,4 @@ DEPENDENCIES
   event_emitter
   gyazz
   mongoid (>= 2.4.0, < 3.0.0)
+  rb-skypemac

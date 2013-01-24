@@ -25,7 +25,7 @@ class Crawler
         diff = page.diff data
         page.data = data
         page.save!
-        emit :diff, page, diff
+        emit :diff, page, diff unless diff.empty?
       else
         data = get_page name
         page = Page.new(:wiki => wiki_name, :name => name, :data => data)
