@@ -7,7 +7,17 @@ class Page
   field :name, :type => String
   field :wiki, :type => String
   field :data, :type => Array
+  validates_presence_of :name
+  validates_presence_of :wiki
+  validates_presence_of :data
+  before_update :on_save
 
+  private
+  def on_save
+    self.updated_at = Time.now
+  end
+
+  public
   def self.find_by_wiki_and_name(wiki, name)
     self.where(:wiki => wiki, :name => name).first
   end
