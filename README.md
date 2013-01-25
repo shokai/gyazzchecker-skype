@@ -41,6 +41,16 @@ Run
     % ruby bin/gyazzchecker.rb --limit 30 --interval 5
 
 
+Install LaunchAgent
+-------------------
+
+    % cp org.shokai.gyazzchecker-skype.plist ~/Library/LaunchAgents/
+
+edit plist file, then
+
+    % launchctl load -w ~/Library/LaunchAgents/org.shokai.gyazzchecker-skype.plist
+
+
 Contributing
 ------------
 1. Fork it
