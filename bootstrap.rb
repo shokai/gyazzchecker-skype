@@ -1,6 +1,11 @@
 require 'rubygems'
-require 'bundler/setup'
-Bundler.require
+gem 'mongoid','>=2.4.0','<3.0.0'
+require 'mongoid'
+require 'gyazz'
+require 'diff-lcs'
+require 'rb-skypemac'
+require 'event_emitter'
+require 'args_parser'
 
 class Bootstrap
   def self.default
