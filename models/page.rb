@@ -6,10 +6,9 @@ class Page
   field :updated_at, :type => Time , :default => lambda{Time.now}
   field :name, :type => String
   field :wiki, :type => String
-  field :data, :type => Array
+  field :data, :type => Array, :default => []
   validates_presence_of :name
   validates_presence_of :wiki
-  validates_presence_of :data
   before_update :on_save
 
   private
