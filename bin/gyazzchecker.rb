@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 require File.expand_path '../bootstrap', File.dirname(__FILE__)
+Bootstrap.init :inits, :models, :libs
 
 parser = ArgsParser.parse ARGV do
   arg :limit, 'page limit'
@@ -20,8 +21,6 @@ if parser.has_option? :help
   STDERR.puts "  ruby #{$0}  --limit 20"
   exit 1
 end
-
-Bootstrap.init :inits, :models, :libs
 
 Conf['gyazz'].each do |wiki|
   crawler = Crawler.new wiki['wiki'], wiki['user'], wiki['pass']
