@@ -1,5 +1,7 @@
 GyazzChecker-Skype
 ==================
+https://github.com/shokai/gyazzchecker-skype
+
 * check Gyazz.com
 * notify Skype
 
