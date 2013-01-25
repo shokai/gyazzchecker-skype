@@ -36,9 +36,9 @@ edit config.yml
 Run
 ---
 
-    % ruby bin/check.rb --help
-    % ruby bin/check.rb --silent
-    % ruby bin/check.rb --limit 30 --interval 5
+    % ruby bin/gyazzchecker.rb --help
+    % ruby bin/gyazzchecker.rb --silent
+    % ruby bin/gyazzchecker.rb --limit 30 --interval 5
 
 
 Contributing
