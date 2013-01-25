@@ -2,10 +2,12 @@
 class Crawler
   include EventEmitter
   attr_reader :gyazz, :wiki_name
+  attr_accessor :interval
 
   def initialize(wiki_name, user=nil, pass=nil)
     @wiki_name = wiki_name
     @gyazz = Gyazz.new wiki_name, user, pass
+    @interval = 5
   end
 
   def get_page(name)
@@ -32,7 +34,7 @@ class Crawler
         page.save!
         emit :new, page
       end
-      sleep 3
+      sleep @interval
     end
   end
 end
