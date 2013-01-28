@@ -43,13 +43,13 @@ Conf['gyazz'].each do |wiki|
   unless parser[:silent]
     crawler.on :new do |page|
       msg = "【新規】 #{page.url}\n"
-      msg += page.data.join("\n")
+      msg += page.data.map{|i| i.remove_gyazz_markup }.join("\n")
       Skype.send_chat_message Conf['skype'], msg
     end
 
     crawler.on :diff do |page, diff|
       msg = "【更新】 #{page.url}\n"
-      msg += diff.join("\n")
+      msg += diff.map{|i| i.remove_gyazz_markup }.join("\n")
       Skype.send_chat_message Conf['skype'], msg
     end
   end
