@@ -2,12 +2,13 @@
 class Crawler
   include EventEmitter
   attr_reader :gyazz, :wiki_name
-  attr_accessor :interval
+  attr_accessor :interval, :nosave
 
   def initialize(wiki_name, user=nil, pass=nil)
     @wiki_name = wiki_name
     @gyazz = Gyazz.new wiki_name, user, pass
     @interval = 5
+    @nosave = false
   end
 
   def get_page(name)
@@ -26,12 +27,12 @@ class Crawler
         data = get_page name
         diff = page.diff data
         page.data = data
-        page.save!
+        page.save! unless @nosave
         emit :diff, page, diff unless diff.empty?
       else
         data = get_page name
         page = Page.new(:wiki => wiki_name, :name => name, :data => data)
-        page.save!
+        page.save! unless @nosave
         emit :new, page
       end
       sleep @interval

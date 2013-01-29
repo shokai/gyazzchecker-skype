@@ -7,6 +7,7 @@ parser = ArgsParser.parse ARGV do
   arg :limit, 'page limit'
   arg :silent, 'no notify'
   arg :interval, 'crawl interval (sec)', :default => 5
+  arg :nosave, 'no save'
   arg :help, 'show help', :alias => :h
 
   validate :interval, 'interval must be Time' do |a|
@@ -25,6 +26,7 @@ end
 Conf['gyazz'].each do |wiki|
   crawler = Crawler.new wiki['wiki'], wiki['user'], wiki['pass']
   crawler.interval = parser[:interval]
+  crawler.nosave = parser[:nosave]
 
   crawler.on :crawl do |name|
     puts "crawl : #{wiki['wiki']}/#{name}"
