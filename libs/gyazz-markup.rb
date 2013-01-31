@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 
 class String
-  def remove_gyazz_markup
+  def remove_gyazz_markup(left='【', right='】')
     self.split(/(\[{2,3}[^\[\]]+\]{2,3})/).map{|i|
       res = i
       if i =~ /(\[{2,3}(.+)\]{2,3})/
         if i =~ /\[{2,3}(https?:\/\/.+)\]{2,3}/
           res = i.gsub(/\[{2,3}([^\[\]]+)\]{2,3}/){ " #{$1} " }
         else
-          res = i.gsub(/\[{2,3}([^\[\]]+)\]{2,3}/){ "《#{$1}》" }
+          res = i.gsub(/\[{2,3}([^\[\]]+)\]{2,3}/){ "#{left}#{$1}#{right}" }
         end
       end
       res
