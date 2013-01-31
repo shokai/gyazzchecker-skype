@@ -7,7 +7,7 @@ parser = ArgsParser.parse ARGV do
   arg :limit, 'page limit'
   arg :silent, 'no notify'
   arg :interval, 'crawl interval (sec)', :default => 5
-  arg :nosave, 'no save'
+  arg :nosave, 'not save gyazz contents for debug'
   arg :help, 'show help', :alias => :h
 
   validate :interval, 'interval must be Time' do |a|
