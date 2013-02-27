@@ -1,6 +1,9 @@
-skype : "#username/$a1b2c3def"
+skype :
+  default : "#username/$a1b2c3def"
+  foobar  : "#foobar/$asdf3413dvb"
 gyazz : 
-  - wiki : test
-  - wiki : shokai
-    user : username
-    pass : password
+  - wiki  : test
+  - wiki  : shokai
+    user  : username
+    pass  : password
+    skype : foobar

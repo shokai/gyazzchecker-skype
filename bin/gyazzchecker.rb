@@ -43,16 +43,17 @@ Conf['gyazz'].each do |wiki|
   end
 
   unless parser[:silent]
+    skype_chat_id = wiki['skype'] ? Conf['skype'][wiki['skype']] : Conf['skype']['default']
     crawler.on :new do |page|
       msg = "(beer) 《新規》 #{page.url} 《#{page.wiki}》\n"
       msg += page.data.map{|i| i.remove_gyazz_markup }.join("\n")
-      Skype.send_chat_message Conf['skype'], msg
+      Skype.send_chat_message skype_chat_id, msg
     end
 
     crawler.on :diff do |page, diff|
       msg = "(*) 《更新》 #{page.url} 《#{page.wiki}》\n"
       msg += diff.map{|i| i.remove_gyazz_markup }.join("\n")
-      Skype.send_chat_message Conf['skype'], msg
+      Skype.send_chat_message skype_chat_id, msg
     end
   end
 
