@@ -46,4 +46,8 @@ class Page
   def url
     "http://gyazz.com/#{wiki.toutf8}/#{name.toutf8}"
   end
+
+  def url_encoded
+    url.gsub(/ /, '%20')
+  end
 end
