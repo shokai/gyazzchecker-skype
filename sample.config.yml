@@ -7,3 +7,7 @@ gyazz :
     user  : username
     pass  : password
     skype : foobar
+ignore :
+  - .書込認証
+  - .完全認証
+  - .passwd

@@ -1,4 +1,3 @@
-
 class Crawler
   include EventEmitter
   attr_reader :gyazz, :wiki_name
@@ -22,6 +21,7 @@ class Crawler
     list = list[0...limit] if limit
     list.each do |name|
       name = name.toutf8
+      next if Conf["ignore"].include? name
       emit :crawl, name
       if page = Page.find_by_wiki_and_name(@wiki_name, name)
         data = get_page name
