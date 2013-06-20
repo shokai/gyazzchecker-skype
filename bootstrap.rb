@@ -1,9 +1,8 @@
 require 'rubygems'
-gem 'mongoid','>=2.4.0','<3.0.0'
 require 'mongoid'
 require 'gyazz'
 require 'diff-lcs'
-require 'rb-skypemac'
+require 'skype'
 require 'event_emitter'
 require 'args_parser'
 

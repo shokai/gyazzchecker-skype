@@ -1,14 +1,12 @@
 #!/usr/bin/env ruby
-$:.unshift File.expand_path '../', File.dirname(__FILE__)
-require 'bootstrap'
-Bootstrap.init :libs
+require 'rubygems'
+require 'skype'
 
 puts "Skype Chat IDs"
-Skype.recent_chats.each do |chat_id|
+Skype.chats.each do |chat|
   puts "-"*5
-  puts "#{chat_id}"
-  Skype.message_ids(chat_id)[0...3].each do |mid|
-    msg = Skype::Message.new mid
-    puts "  #{msg}"
+  puts "#{chat.id}"
+  chat.messages.reverse[0...3].each do |m|
+    puts m
   end
 end
