@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
-
 class String
   def remove_gyazz_markup(left='【', right='】')
-    self.split(/(\[{2,3}[^\[\]]+\]{2,3})/).map{|i|
+    self.toutf8.split(/(\[{2,3}[^\[\]]+\]{2,3})/).map{|i|
       res = i
       if i =~ /(\[{2,3}(.+)\]{2,3})/
         if i =~ /\[{2,3}(https?:\/\/.+)\]{2,3}/

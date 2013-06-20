@@ -38,7 +38,7 @@ Conf['gyazz'].each do |wiki|
 
   crawler.on :diff do |page, diff|
     diff.each do |line|
-      puts "diff : #{page.name} +#{line}"
+      puts "diff : #{page.name} +#{line.toutf8}"
     end
   end
 
@@ -48,14 +48,14 @@ Conf['gyazz'].each do |wiki|
       msg = "(beer) 《新規》 #{page.url_encoded} 《#{page.wiki}》\n"
       msg += "《#{page.name}》\n" if page.url != page.url_encoded
       msg += page.data.map{|i| i.remove_gyazz_markup }.join("\n")
-      Skype.send_chat_message skype_chat_id, msg
+      Skype::Chat.new(skype_chat_id).post(msg)
     end
 
     crawler.on :diff do |page, diff|
       msg = "(*) 《更新》 #{page.url_encoded} 《#{page.wiki}》\n"
       msg += "《#{page.name}》\n" if page.url != page.url_encoded
       msg += diff.map{|i| i.remove_gyazz_markup }.join("\n")
-      Skype.send_chat_message skype_chat_id, msg
+      Skype::Chat.new(skype_chat_id).post(msg)
     end
   end
 
