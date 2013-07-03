@@ -1,3 +1,5 @@
+require 'kconv'
+
 class Crawler
   include EventEmitter
   attr_reader :gyazz, :wiki_name
@@ -11,7 +13,7 @@ class Crawler
   end
 
   def get_page(name)
-    @gyazz.get(URI.encode name).
+    @gyazz.get(URI.encode name).toutf8.
       split(/[\r\n]+/).
       reject{|i| i =~ /^\s+$/}
   end
