@@ -24,7 +24,7 @@ GEM
       tzinfo (~> 0.3.22)
     multi_json (1.7.7)
     ruby-dbus (0.9.2)
-    skype (0.2.2)
+    skype (0.2.3)
       tmp_cache
     tmp_cache (0.1.1)
     tzinfo (0.3.37)
