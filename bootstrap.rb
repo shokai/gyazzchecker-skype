@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'mongoid'
+require 'uri'
 require 'gyazz'
 require 'diff-lcs'
 require 'skype'
