@@ -7,35 +7,31 @@ class Crawler
 
   def initialize(wiki_name, user=nil, pass=nil)
     @wiki_name = wiki_name
-    @gyazz = Gyazz.new wiki_name, user, pass
+    @gyazz = Gyazz.wiki(wiki_name)
+    if user and pass
+      @gyazz.auth :username => user, :password => pass
+    end
     @interval = 5
     @nosave = false
   end
 
-  def get_page(name)
-    @gyazz.get(URI.encode name).toutf8.
-      split(/[\r\n]+/).
-      reject{|i| i =~ /^\s+$/}
-  end
-
   def crawl(limit=nil)
-    list = @gyazz.list
+    list = @gyazz.pages
     list = list[0...limit] if limit
-    list.each do |name|
-      name = name.toutf8
-      next if Conf["ignore"].include? name
-      emit :crawl, name
-      if page = Page.find_by_wiki_and_name(@wiki_name, name)
-        data = get_page name
-        diff = page.diff data
-        page.data = data
-        page.save! unless @nosave
-        emit :diff, page, diff unless diff.empty?
+    list.each do |page|
+      next if Conf["ignore"].include? page.name
+      emit :crawl, page.name
+      if _page = Page.find_by_wiki_and_name(@wiki_name, page.name)
+        data = page.text.toutf8.split(/[\r\n]+/).reject{|i| i =~ /^\s+$/ }
+        diff = _page.diff data
+        _page.data = data
+        _page.save! unless @nosave
+        emit :diff, _page, diff unless diff.empty?
       else
-        data = get_page name
-        page = Page.new(:wiki => wiki_name, :name => name, :data => data)
-        page.save! unless @nosave
-        emit :new, page
+        data = page.text.toutf8.split(/[\r\n]+/).reject{|i| i =~ /^\s+$/ }
+        _page = Page.new(:wiki => wiki_name, :name => page.name, :data => data)
+        _page.save! unless @nosave
+        emit :new, _page
       end
       sleep @interval
     end
