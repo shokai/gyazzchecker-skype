@@ -30,6 +30,7 @@ GEM
       tzinfo (~> 0.3.22)
     multi_json (1.8.2)
     multi_xml (0.5.5)
+    ruby-dbus (0.9.3)
     skype (0.2.7)
       tmp_cache
     tmp_cache (0.1.1)
@@ -45,4 +46,5 @@ DEPENDENCIES
   event_emitter
   gyazz
   mongoid (>= 2.4.0, < 3.0.0)
+  ruby-dbus
   skype
