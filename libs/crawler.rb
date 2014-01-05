@@ -9,7 +9,7 @@ class Crawler
     @wiki_name = wiki_name
     @gyazz = Gyazz.wiki(wiki_name)
     if user and pass
-      @gyazz.auth :username => user, :password => pass
+      @gyazz.auth = {:username => user, :password => pass}
     end
     @interval = 5
     @nosave = false
