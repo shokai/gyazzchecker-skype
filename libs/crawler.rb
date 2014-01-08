@@ -22,13 +22,13 @@ class Crawler
       next if Conf["ignore"].include? page.name
       emit :crawl, page.name
       if _page = Page.find_by_wiki_and_name(@wiki_name, page.name)
-        data = page.text.toutf8.split(/[\r\n]+/).reject{|i| i =~ /^\s+$/ }
+        data = page.text.toutf8.split(/[\r\n]+/).reject{|i| i =~ /^\s+$/ } rescue next
         diff = _page.diff data
         _page.data = data
         _page.save! unless @nosave
         emit :diff, _page, diff unless diff.empty?
       else
-        data = page.text.toutf8.split(/[\r\n]+/).reject{|i| i =~ /^\s+$/ }
+        data = page.text.toutf8.split(/[\r\n]+/).reject{|i| i =~ /^\s+$/ } rescue next
         _page = Page.new(:wiki => wiki_name, :name => page.name, :data => data)
         _page.save! unless @nosave
         emit :new, _page
