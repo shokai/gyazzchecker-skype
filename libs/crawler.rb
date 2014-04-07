@@ -29,6 +29,7 @@ class Crawler
         emit :diff, _page, diff unless diff.empty?
       else
         data = page.text.toutf8.split(/[\r\n]+/).reject{|i| i =~ /^\s+$/ } rescue next
+        next if data.strip == '(empty)'
         _page = Page.new(:wiki => wiki_name, :name => page.name, :data => data)
         _page.save! unless @nosave
         emit :new, _page
