@@ -23,6 +23,7 @@ class Crawler
       emit :crawl, page.name
       if _page = Page.find_by_wiki_and_name(@wiki_name, page.name)
         data = page.text.toutf8.split(/[\r\n]+/).reject{|i| i =~ /^\s+$/ } rescue next
+        next if data.to_s.strip == '(empty)'
         diff = _page.diff data
         _page.data = data
         _page.save! unless @nosave
